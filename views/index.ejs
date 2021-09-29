@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Socket.io Chat</title>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="css/main.css"></link>
+<link rel="stylesheet" href="css/tailwind.css"></link>
+</head>
+<body id="tooltip">
+  <section class="">
+
+  </section>
+  <div class="notification-box flex flex-col items-start justify-center fixed w-full z-50 p-3">
+    <!-- Notification container -->
+  </div>
+<section class="msger">
+  <header class="msger-header">
+    <div id="top" class="msger-header-title"></div>
+    <div id="middle" class="msger-header-title">
+      Socket.io Chat
+   </div>
+   <div id="count" class="msger-header-title"></div>
+  </header>
+  <main id="chat" class="msger-chat" onchange="lastmessage()">
+    <div class="msg left-msg">
+      <div
+       class="msg-img"
+       style="background-image: url(https://image.flaticon.com/icons/svg/327/327798.svg)"
+      ></div>
+      <div class="msg-bubble">
+        <div class="msg-info">
+          <div class="msg-info-name">Chatu</div>
+        </div>
+
+        <div class="msg-text">
+          Hi, welcome to Socket.io Chat! Here you can create your own Username and Chat with other Connected Users. Have Fun 😄
+        </div>
+      </div>    
+    </div>
+    <div class="msg left-msg">
+      <div
+       class="msg-img"
+       style="background-image: url(https://image.flaticon.com/icons/svg/327/327798.svg)"
+      ></div>
+
+      <div class="msg-bubble">
+        <div class="msg-info">
+          <div class="msg-info-name">Chatu</div>
+        </div>
+
+        <div class="msg-text">
+          Enter your Username and Room below 👇
+        </div>
+      </div>
+    </div>
+    
+  </main>
+  <form id="msg-fmt" class="msger-inputarea" >
+      <button type="button" value="" class="msger-send-btn btns" onclick="toggle()">😋
+        <div class="tooltip" role="tooltip">
+          <emoji-picker></emoji-picker>
+        </div>
+      </button>
+      <input id="name" type="text" name="name" value="" class="msger-input" placeholder="Enter your Username">
+      <input id="room" type="text" name="room" value="" class="msger-input marg" placeholder="Room">
+      <button id="press" type="button" value="" onclick="setUsername()" class="msger-send-btn">Get IN</button>
+    </form>
+</section>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script type="module" src="https://unpkg.com/emoji-picker-element@1"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
