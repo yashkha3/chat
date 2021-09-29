@@ -55,6 +55,6 @@ io.on('connection', (socket) => {
 })
 
 
-http.listen(8081, () => {
-    console.log('server running on port: 8081');
+http.listen(process.env.port, () => {
+    console.log('server running on port: process.env.port');
 });
