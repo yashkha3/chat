@@ -23,7 +23,7 @@ io.on('connection', (socket) => {
     // io.emit('broadcast', count);
     socket.on('setUsername', (data) => {
         if(data.name == ""){
-            socket.emit('name_notification', `Please Enter Username`);
+            socket.emit('name_notification', `Please Enter your Username`);
         }else{
             const {error, user} = add({id: socket.id, name: data.name, room: data.room});
             if(error){
