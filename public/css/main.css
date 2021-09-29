@@ -128,6 +128,8 @@
     padding: 10px;
     border-top: var(--border);
     background: #eee;
+    flex-direction: row;
+    flex-wrap: wrap;
   }
   .msger-inputarea * {
     padding: 10px;
