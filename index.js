@@ -2,6 +2,7 @@ var express = require('express');
 const app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var PORT = process.env.PORT || 8081;
 
 app.use(express.static('public'));
 app.use('/css', express.static(__dirname + 'public/css'))
@@ -63,6 +64,6 @@ io.on('connection', (socket) => {
 })
 
 
-http.listen(8081, () => {
+http.listen(PORT, () => {
     console.log('server running on port: 8081');
 });
