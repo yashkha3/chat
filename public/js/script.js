@@ -47,10 +47,28 @@ var sendNotificaton = (type, text) => {
     notificationBox.removeChild(component);
   }, 5700);
 };
-
+var nam = document.getElementById('name').value;
+var room = document.getElementById('room').value;
+console.log(nam, room);
 sendNotificaton('info', 'Welcome');
 var setUsername = () => {
   socket.emit('setUsername', { name: document.getElementById('name').value, room: document.getElementById('room').value });
+};
+
+var whileTyping = () => {
+  
+  var messageBox = document.getElementById('message');
+  messageBox.addEventListener('keypress', () => {
+    socket.emit('typing');
+  });
+};
+
+var typingEnd = () => {
+  
+  var messageBox = document.getElementById('message');
+  messageBox.addEventListener('keydown', () => {
+    socket.emit('typingEnd');
+  });
 };
 
 var sendMessage = () => {
@@ -86,23 +104,17 @@ socket.on('name_notification', (data) => {
 socket.on('roomSetup', (data) => {
   document.getElementById('top').innerHTML = "Socket.io Chat";
   document.getElementById('middle').innerHTML = `Room: ${data.room}`;
-  document.getElementById('chat').innerHTML = "";
-  document.getElementById('room').outerHTML = "";
-  document.getElementById('count').innerHTML = "";
-  document.getElementById('name').outerHTML = `<input id="message" type="text" name="name" value="" class="msger-input" placeholder="Enter the Message">`;
+    document.getElementById('chat').innerHTML = "";
+    document.getElementById('room').outerHTML = "";
+    document.getElementById('count').innerHTML = "";
+  document.getElementById('name').outerHTML = `<input id="message" type="text" name="name" value="" onkeypress="whileTyping()" onkeyup="typingEnd()" class="msger-input" placeholder="Enter the Message">`;
   document.getElementById('press').outerHTML = `<button type="button" value="" onclick="sendMessage()" class="msger-send-btn">Send</button>`;
 });
 
 socket.on('roomData', (data) => {
   console.log(data)
   document.getElementById('count').innerHTML = `${data.length} users in Room.`;
-  // document.getElementById('top').innerHTML = "Socket.io Chat";
-  // document.getElementById('middle').innerHTML = `Room: ${data.room}`;
-  // document.getElementById('chat').innerHTML = "";
-  // document.getElementById('room').outerHTML = "";
-  // document.getElementById('name').outerHTML = `<input id="message" type="text" name="name" value="" class="msger-input" placeholder="Enter the Message">`;
-  // document.getElementById('press').outerHTML = `<button type="button" value="" onclick="sendMessage()" class="msger-send-btn">Send</button>`;
-});
+ });
 
 socket.on('in_notification', (data) => {
   sendNotificaton('success', data);
@@ -117,6 +129,14 @@ socket.on('in_info', (data) => {
     </div>
 </div>`;
 lastmessage();
+});
+
+socket.on('typing_message', (data) => {
+  document.getElementById('title').innerHTML = data +" is typing" ;
+});
+
+socket.on('typing_message_end', () => {
+  document.getElementById('title').innerHTML = "Socket.io Chat" ;
 });
 
 socket.on('send_msg', (data) => {
