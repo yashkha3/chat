@@ -23,7 +23,7 @@ io.on('connection', (socket) => {
     // io.emit('broadcast', count);
     socket.on('setUsername', (data) => {
         if(data.name == ""){
-            socket.emit('name_notification', `Please Enter your Username`);
+            socket.emit('name_notification', `Please Enter Username`);
         }else{
             const {error, user} = add({id: socket.id, name: data.name, room: data.room});
             if(error){
@@ -36,6 +36,14 @@ io.on('connection', (socket) => {
                 io.to(user.room).emit('in_info',`${user.name} Joined`);
             }
         }
+    });
+    socket.on('typing', () => {
+        const user = getUser(socket.id);
+        io.to(user.room).emit('typing_message', user.name);
+    });
+    socket.on('typingEnd', () => {
+        const user = getUser(socket.id);
+        io.to(user.room).emit('typing_message_end');
     });
     socket.on('msg', (data) => {
         const user = getUser(socket.id);
@@ -55,6 +63,6 @@ io.on('connection', (socket) => {
 })
 
 
-http.listen(process.env.PORT, () => {
-    console.log('server running on port: '+ process.env.PORT);
+http.listen(8081, () => {
+    console.log('server running on port: 8081');
 });
